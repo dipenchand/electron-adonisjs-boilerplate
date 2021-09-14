@@ -1,63 +1,28 @@
-'use strict'
-
-/** @type {import('@adonisjs/framework/src/Server')} */
-const Server = use('Server')
-
-/*
-|--------------------------------------------------------------------------
-| Global Middleware
-|--------------------------------------------------------------------------
-|
-| Global middleware are executed on each http request only when the routes
-| match.
-|
-*/
-const globalMiddleware = [
-  'Adonis/Middleware/BodyParser',
-  'Adonis/Middleware/Session',
-  'Adonis/Middleware/Shield',
-  'Adonis/Middleware/AuthInit',
-  'App/Middleware/ConvertEmptyStringsToNull',
-]
-
-/*
-|--------------------------------------------------------------------------
-| Named Middleware
-|--------------------------------------------------------------------------
-|
-| Named middleware is key/value object to conditionally add middleware on
-| specific routes or group of routes.
-|
-| // define
-| {
-|   auth: 'Adonis/Middleware/Auth'
-| }
-|
-| // use
-| Route.get().middleware('auth')
-|
-*/
-const namedMiddleware = {
-  auth: 'Adonis/Middleware/Auth',
-  guest: 'Adonis/Middleware/AllowGuestOnly'
-}
-
-/*
-|--------------------------------------------------------------------------
-| Server Middleware
-|--------------------------------------------------------------------------
-|
-| Server level middleware are executed even when route for a given URL is
-| not registered. Features like `static assets` and `cors` needs better
-| control over request lifecycle.
-|
-*/
-const serverMiddleware = [
-  'Adonis/Middleware/Static',
-  'Adonis/Middleware/Cors'
-]
-
-Server
-  .registerGlobal(globalMiddleware)
-  .registerNamed(namedMiddleware)
-  .use(serverMiddleware)
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Server_1 = __importDefault(global[Symbol.for('ioc.use')]("Adonis/Core/Server"));
+Server_1.default.middleware.register([() => Promise.resolve().then(() => __importStar(global[Symbol.for('ioc.use')]("Adonis/Core/BodyParser")))]);
+Server_1.default.middleware.registerNamed({});
+//# sourceMappingURL=kernel.js.map

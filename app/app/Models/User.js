@@ -1,39 +1,37 @@
-'use strict'
-
-/** @type {import('@adonisjs/framework/src/Hash')} */
-const Hash = use('Hash')
-
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Model = use('Model')
-
-class User extends Model {
-  static boot () {
-    super.boot()
-
-    /**
-     * A hook to hash the user password before saving
-     * it to the database.
-     */
-    this.addHook('beforeSave', async (userInstance) => {
-      if (userInstance.dirty.password) {
-        userInstance.password = await Hash.make(userInstance.password)
-      }
-    })
-  }
-
-  /**
-   * A relationship on tokens is required for auth to
-   * work. Since features like `refreshTokens` or
-   * `rememberToken` will be saved inside the
-   * tokens table.
-   *
-   * @method tokens
-   *
-   * @return {Object}
-   */
-  tokens () {
-    return this.hasMany('App/Models/Token')
-  }
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const luxon_1 = require("luxon");
+const Orm_1 = global[Symbol.for('ioc.use')]("Adonis/Lucid/Orm");
+class User extends Orm_1.BaseModel {
 }
-
-module.exports = User
+__decorate([
+    Orm_1.column({ isPrimary: true }),
+    __metadata("design:type", Number)
+], User.prototype, "id", void 0);
+__decorate([
+    Orm_1.column(),
+    __metadata("design:type", String)
+], User.prototype, "name", void 0);
+__decorate([
+    Orm_1.column(),
+    __metadata("design:type", String)
+], User.prototype, "email", void 0);
+__decorate([
+    Orm_1.column.dateTime({ autoCreate: true }),
+    __metadata("design:type", luxon_1.DateTime)
+], User.prototype, "createdAt", void 0);
+__decorate([
+    Orm_1.column.dateTime({ autoCreate: true, autoUpdate: true }),
+    __metadata("design:type", luxon_1.DateTime)
+], User.prototype, "updatedAt", void 0);
+exports.default = User;
+//# sourceMappingURL=User.js.map
